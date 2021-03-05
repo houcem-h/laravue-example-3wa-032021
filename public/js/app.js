@@ -1924,9 +1924,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.loadCategories();
+    this.loadProducts();
+    console.log(this.categories);
+    console.log(this.products);
+  },
+  data: function data() {
+    return {
+      categories: [],
+      products: []
+    };
+  },
+  methods: {
+    loadCategories: function loadCategories() {
+      var _this = this;
+
+      axios.get('/api/categories').then(function (response) {
+        _this.categories = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    loadProducts: function loadProducts() {
+      var _this2 = this;
+
+      axios.get('/api/products').then(function (response) {
+        _this2.products = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
   }
 });
 
@@ -37593,29 +37640,80 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "container", class: { loading: _vm.loading } },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-lg-3" }, [
+          _c("h1", { staticClass: "my-4" }, [_vm._v("Shop Catalog")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "list-group" },
+            _vm._l(_vm.categories, function(category) {
+              return _c(
+                "a",
+                { key: category.id, staticClass: "list-group-item" },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(category.name) +
+                      "\n                "
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-9" }, [
+          _c(
+            "div",
+            { staticClass: "row mt-4" },
+            _vm._l(_vm.products, function(product) {
+              return _c(
+                "div",
+                { key: product.id, staticClass: "col-lg-4 col-md-6 mb-4" },
+                [
+                  _c("div", { staticClass: "card h-100" }, [
+                    _vm._m(0, true),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("h4", { staticClass: "card-title" }, [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(_vm._s(product.name))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", [_vm._v("$ " + _vm._s(product.price))]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(_vm._s(product.description))
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            }),
+            0
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component test")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("img", {
+        staticClass: "card-img-top",
+        attrs: { src: "http://placehold.it/700x400", alt: "" }
+      })
     ])
   }
 ]
